@@ -8,8 +8,11 @@ services:
       --datadir=/data 
       --http 
       --http-web3provider=http://geth:8545
-      --p2p-host-ip=$(hostname -I | awk '{print $1}')
-      --p2p-host-dns=$(hostname -f)
+      --p2p-host-ip=${P2P_HOST_IP}
+      --p2p-host-dns=${P2P_HOST_DNS}
+    environment:
+      - P2P_HOST_IP=${P2P_HOST_IP}
+      - P2P_HOST_DNS=${P2P_HOST_DNS}
     ports:
       - 4000:4000
       - 13000:13000
