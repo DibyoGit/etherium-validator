@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  geth:
+    image: ethereum/client-go:stable
+    volumes:
+      - ./geth_data:/root/.ethereum
+    command: --http --http.addr 0.0.0.0 --http.port 8545 --http.api eth,net,web3 --http.corsdomain "*" --syncmode "full" --http.vhosts "*"
+    ports:
+      - 8545:8545
+      - 30303:30303
+    restart: unless-stopped
