@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  web3signer:
+    image: consensys/web3signer:latest
+    volumes:
+      - ./web3signer_data:/data
+      - ./validator_keys:/keys
+      - ./signer_passwords:/passwords
+    command: --key-store=/keys --key-password-file=/passwords/key_password.txt --http-listen-port=9000 --slashing-protection-db-url=jdbc:postgresql://postgres:5432/slashing
+    ports:
+      - 9000:9000
+    restart: unless-stopped
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: web3signer
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: slashing
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
