@@ -6,7 +6,6 @@ services:
       - ./prysm_beacon_data:/data
     command: >
       --datadir=/data 
-      --http 
       --http-web3provider=http://geth:8545
       --p2p-host-ip=${P2P_HOST_IP}
       --p2p-host-dns=${P2P_HOST_DNS}
