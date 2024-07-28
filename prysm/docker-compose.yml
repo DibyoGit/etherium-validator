@@ -5,8 +5,13 @@ services:
     volumes:
       - ./prysm_beacon_data:/data
     command: >
-      --datadir=/data 
-      --http-web3provider=http://geth:8545
+      --datadir=/data
+      --execution-endpoint=http://geth:8551
+      --p2p-host-ip=${P2P_HOST_IP}
+      --p2p-host-dns=${P2P_HOST_DNS}
+    environment:
+      - P2P_HOST_IP=${P2P_HOST_IP}
+      - P2P_HOST_DNS=${P2P_HOST_DNS}
     ports:
       - 4000:4000
       - 13000:13000
