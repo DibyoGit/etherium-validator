@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  prysm-beacon:
+    image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
+    volumes:
+      - ./prysm_beacon_data:/data
+    command: --http-web3provider=http://geth:8545 --datadir=/data --genesis-state=/data/genesis.ssz
+    ports:
+      - 4000:4000
+      - 13000:13000
+    restart: unless-stopped
+  prysm-validator:
+    image: gcr.io/prysmaticlabs/prysm/validator:stable
+    volumes:
+      - ./prysm_validator_data:/data
+      - ./keystore:/keystore
+      - ./validator_passwords:/passwords
+    command: --beacon-rpc-provider=prysm-beacon:4000 --wallet-dir=/keystore --wallet-password-file=/passwords/wallet_password.txt --datadir=/data
+    restart: unless-stopped
