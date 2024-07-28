@@ -7,11 +7,6 @@ services:
     command: >
       --datadir=/data 
       --http-web3provider=http://geth:8545
-      --p2p-host-ip=${P2P_HOST_IP}
-      --p2p-host-dns=${P2P_HOST_DNS}
-    environment:
-      - P2P_HOST_IP=${P2P_HOST_IP}
-      - P2P_HOST_DNS=${P2P_HOST_DNS}
     ports:
       - 4000:4000
       - 13000:13000
@@ -28,6 +23,7 @@ services:
       --beacon-rpc-provider=prysm-beacon:4000
       --wallet-dir=/keystore
       --wallet-password-file=/passwords/wallet_password.txt
+      --accept-terms-of-use
     depends_on:
       - prysm-beacon
     restart: unless-stopped
